@@ -15,6 +15,7 @@
     "declaration": true, // 生成声明文件，开启后会自动生成声明文件
     "emitDeclarationOnly": true, // 只生成声明文件，而不会生成js文件
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "lib": ["esnext", "dom"],
     "types": ["vite/client"]
   },
