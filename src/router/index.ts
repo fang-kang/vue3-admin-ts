@@ -4,6 +4,13 @@
  * @Date: 2021-07-17 10:58:20
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+
+export const whiteList = [
+  {
+    path: '/login'
+  }
+];
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",

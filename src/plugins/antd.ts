@@ -4,7 +4,7 @@
  * @Date: 2021-07-23 09:36:23
  */
 import { message } from "ant-design-vue";
-import { App } from "vue";
+import type { App } from "vue";
 
 export { message };
 const components = [message];

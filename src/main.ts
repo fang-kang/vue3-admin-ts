@@ -9,11 +9,15 @@ import App from "./App.vue";
 
 import router from "./router";
 
+import 'normalize.css/normalize.css' /* a modern alternative to CSS resets */
+
+import 'router/route';
+
 import store from "./store";
-/* Element按需引入 */
-import Element from "./plugins/element";
-/* Antd按需引入 */
-import Antd from "./plugins/antd";
+
+import Element from "./plugins/element"; /* Element按需引入 */
+ 
+import Antd from "./plugins/antd"; /* Antd按需引入 */
 
 const app = createApp(App);
 

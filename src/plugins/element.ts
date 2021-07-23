@@ -91,7 +91,7 @@ import {
   ElMessageBox,
   ElNotification,
 } from "element-plus";
-import { App } from "vue";
+import type { App } from "vue";
 
 const components = [
   ElAlert,

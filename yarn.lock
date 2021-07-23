@@ -90,6 +90,16 @@
   resolved "https://registry.nlark.com/@types/node/download/@types/node-16.3.3.tgz#0c30adff37bbbc7a50eb9b58fae2a504d0d88038"
   integrity sha1-DDCt/ze7vHpQ65tY+uKlBNDYgDg=
 
+"@types/nprogress@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.nlark.com/@types/nprogress/download/@types/nprogress-0.2.0.tgz?cache=0&sync_timestamp=1621242271973&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fnprogress%2Fdownload%2F%40types%2Fnprogress-0.2.0.tgz#86c593682d4199212a0509cc3c4d562bbbd6e45f"
+  integrity sha1-hsWTaC1BmSEqBQnMPE1WK7vW5F8=
+
+"@types/webpack-env@^1.16.2":
+  version "1.16.2"
+  resolved "https://registry.nlark.com/@types/webpack-env/download/@types/webpack-env-1.16.2.tgz#8db514b059c1b2ae14ce9d7bb325296de6a9a0fa"
+  integrity sha1-jbUUsFnBsq4Uzp17syUpbeapoPo=
+
 "@vitejs/plugin-vue@^1.2.5":
   version "1.2.5"
   resolved "https://registry.nlark.com/@vitejs/plugin-vue/download/@vitejs/plugin-vue-1.2.5.tgz#ef7dc4a92e53fe866b54bcc1266788513262ac09"
@@ -562,6 +572,11 @@ header-case@^2.0.4:
     capital-case "^1.0.4"
     tslib "^2.0.3"
 
+i@^0.3.6:
+  version "0.3.6"
+  resolved "https://registry.npm.taobao.org/i/download/i-0.3.6.tgz#d96c92732076f072711b6b10fd7d4f65ad8ee23d"
+  integrity sha1-2WyScyB28HJxG2sQ/X1PZa2O4j0=
+
 icss-replace-symbols@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/icss-replace-symbols/download/icss-replace-symbols-1.1.0.tgz#06ea6f83679a7749e386cfe1fe812ae5db223ded"
@@ -773,6 +788,16 @@ normalize-wheel@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/normalize-wheel/download/normalize-wheel-1.0.1.tgz#aec886affdb045070d856447df62ecf86146ec45"
   integrity sha1-rsiGr/2wRQcNhWRH32Ls+GFG7EU=
+
+normalize.css@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.npm.taobao.org/normalize.css/download/normalize.css-8.0.1.tgz#9b98a208738b9cc2634caacbc42d131c97487bf3"
+  integrity sha1-m5iiCHOLnMJjTKrLxC0THJdIe/M=
+
+nprogress@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npm.taobao.org/nprogress/download/nprogress-0.2.0.tgz#cb8f34c53213d895723fcbab907e9422adbcafb1"
+  integrity sha1-y480xTIT2JVyP8urkH6UIq28r7E=
 
 omit.js@^2.0.0:
   version "2.0.2"

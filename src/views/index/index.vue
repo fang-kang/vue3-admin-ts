@@ -14,6 +14,7 @@
 import { defineComponent, ref } from "vue";
 import HelloWorld from "components/HelloWorld.vue";
 import useInstance from "mixins/instance";
+import { useRouter } from "vue-router";
 export default defineComponent({
   components: {
     HelloWorld,
@@ -21,13 +22,17 @@ export default defineComponent({
   setup() {
     const msg = ref("hello");
     const { $antMessage } = useInstance();
+    const router = useRouter();
     const handelMessage = () => {
       $antMessage.success("success");
+      router.push({
+        path: "/test",
+      });
     };
 
     return {
       handelMessage,
-      msg
+      msg,
     };
   },
 });

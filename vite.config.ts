@@ -51,11 +51,25 @@ export default defineConfig({
       "@": pathResolve("src"),
       components: pathResolve("src/components"),
       assets: pathResolve("src/assets"),
+      router: pathResolve("src/router"),
       views: pathResolve("src/views"),
       utils: pathResolve("src/utils"),
       apis: pathResolve("src/apis"),
       plugins: pathResolve("src/plugins"),
       mixins: pathResolve("src/mixins"),
     },
+    // alias: [
+    //   // /@/xxxx => src/xxxx
+    //   {
+    //     find: /\/@\//,
+    //     replacement: pathResolve('src') + '/',
+    //   },
+    //   // /#/xxxx => types/xxxx
+    //   {
+    //     find: /\/#\//,
+    //     replacement: pathResolve('types') + '/',
+    //   },
+    //   // ['@vue/compiler-sfc', '@vue/compiler-sfc/dist/compiler-sfc.esm-browser.js'],
+    // ],
   },
 });
