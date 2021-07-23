@@ -23,6 +23,7 @@ NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false })
  */
 router.beforeEach(async (to: any, _from: any, next: any) => {
   NProgress.start();
+  document.title = to.meta.title;
   const token = "token";
   console.log('aaaaa')
   if (token) {

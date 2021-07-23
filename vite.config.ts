@@ -57,6 +57,9 @@ export default defineConfig({
       apis: pathResolve("src/apis"),
       plugins: pathResolve("src/plugins"),
       mixins: pathResolve("src/mixins"),
+      types: pathResolve("src/types"),
+      hooks: pathResolve("src/hooks"),
+      styles: pathResolve("src/styles"),
     },
     // alias: [
     //   // /@/xxxx => src/xxxx

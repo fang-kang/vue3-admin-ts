@@ -3,11 +3,27 @@
  * @Author: 房康
  * @Date: 2021-07-23 09:36:23
  */
-import { message } from "ant-design-vue";
+import {
+  message,
+  Button,
+  Form,
+  Card,
+  Input,
+  FormItem,
+  InputPassword,
+} from "ant-design-vue";
 import type { App } from "vue";
 
 export { message };
-const components = [message];
+const components = [
+  message,
+  Button,
+  Form,
+  Card,
+  Input,
+  FormItem,
+  InputPassword,
+];
 export default {
   install: (app: App) => {
     components.forEach((component: any) => {

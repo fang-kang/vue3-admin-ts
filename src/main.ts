@@ -13,11 +13,15 @@ import 'normalize.css/normalize.css' /* a modern alternative to CSS resets */
 
 import 'router/route';
 
+import Antd from 'ant-design-vue';
+
+import 'ant-design-vue/dist/antd.css';
+
 import store from "./store";
 
 import Element from "./plugins/element"; /* Element按需引入 */
  
-import Antd from "./plugins/antd"; /* Antd按需引入 */
+// import Antd from "./plugins/antd"; /* Antd按需引入 */
 
 const app = createApp(App);
 

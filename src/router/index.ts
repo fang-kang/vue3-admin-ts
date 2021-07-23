@@ -21,6 +21,14 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    path: "/login",
+    name: "Login",
+    component: () => import(/* webpackChunkName: "index" */ "views/login/index.vue"),
+    meta: {
+      title: "登录",
+    },
+  },
+  {
     path: "/test",
     name: "Test",
     component: () => import(/* webpackChunkName: "index" */ "views/index/test.vue"),

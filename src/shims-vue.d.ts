@@ -12,3 +12,4 @@ declare module '*.vue' {
 declare module 'qs';
 
 declare module '*.ts';
+
