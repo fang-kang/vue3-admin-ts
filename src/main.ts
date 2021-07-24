@@ -7,22 +7,32 @@ import { createApp } from "vue";
 
 import App from "./App.vue";
 
-import router from "./router";
+import router from "@/router";
 
-import 'normalize.css/normalize.css' /* a modern alternative to CSS resets */
+import "normalize.css/normalize.css"; /* a modern alternative to CSS resets */
 
-import 'router/route';
+import "@/router/route";
 
-import Antd from 'ant-design-vue';
+import "@/styles/common.scss"; /* common */
 
-import 'ant-design-vue/dist/antd.css';
+// import Antd from "ant-design-vue";
 
-import store from "./store";
+import "ant-design-vue/dist/antd.css";
 
-import Element from "./plugins/element"; /* Element按需引入 */
- 
-// import Antd from "./plugins/antd"; /* Antd按需引入 */
+import directives from "@/directives"; /* 全局指令 */
+
+import store from "@/store";
+
+import Element from "@/plugins/element"; /* Element按需引入 */
+
+import Antd from "@/plugins/antd"; /* Antd按需引入 */
 
 const app = createApp(App);
+
+// 注册全局指令
+for (const key in directives) {
+  // @ts-ignore
+  app.directive(key, directives[key]);
+}
 
 app.use(router).use(store).use(Element).use(Antd).mount("#app");

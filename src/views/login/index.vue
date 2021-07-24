@@ -19,31 +19,35 @@
         </template>
         <div class="loginForm" v-if="tabkey === 'login'">
           <a-form
-            :ref="loginFormRef"
-            :model="formState"
+            ref="loginFormRef"
+            :model="loginForm"
             :rules="loginRules"
             :label-col="labelCol"
             :wrapper-col="wrapperCol"
           >
-            <a-form-item label="用户名" name="name" :span="24">
+            <a-form-item label="用户名" name="username" :span="24">
               <a-input
-                v-model:value="formState.name"
+                allowClear
+                v-model:value="loginForm.username"
                 placeholder="请输入用户名"
-                maxlength="10"
+                autocomplete="username"
+                :maxlength="10"
               />
             </a-form-item>
             <a-form-item label="密码" name="password">
               <a-input-password
-                v-model:value="formState.password"
+                allowClear
+                v-model:value="loginForm.password"
                 @keyup.enter="loginAction"
                 placeholder="请输入密码"
-                
+                autocomplete="current-password"
+                :maxlength="20"
               />
             </a-form-item>
           </a-form>
           <div class="action">
             <a-space size="large">
-              <a-button @click="resetForm">重置</a-button>
+              <a-button @click="resetForm" class="mr-10">重置</a-button>
               <a-button
                 :loading="loginLoading"
                 type="primary"
@@ -53,15 +57,66 @@
             </a-space>
           </div>
         </div>
+        <div class="registerForm" v-else>
+          <a-form
+            ref="registerFormRef"
+            :model="registerForm"
+            :rules="registerRules"
+            :label-col="labelCol"
+            :wrapper-col="wrapperCol"
+          >
+            <a-form-item label="用户名" name="username" :span="24">
+              <a-input
+                v-model:value="registerForm.username"
+                placeholder="请输入用户名"
+                allowClear
+                autocomplete="username"
+                :maxlength="10"
+              />
+            </a-form-item>
+            <a-form-item label="密码" name="password" :span="24">
+              <a-input-password
+                allowClear
+                v-model:value="registerForm.password"
+                placeholder="请输入密码"
+                autocomplete="current-password"
+                :maxlength="20"
+              />
+            </a-form-item>
+            <a-form-item label="确认" name="confirmPassword" :span="24">
+              <a-input-password
+                allowClear
+                v-model:value="registerForm.confirmPassword"
+                placeholder="请再次输入密码"
+                autocomplete="current-password"
+                :maxlength="20"
+                @keyup.enter="registerAction"
+              />
+            </a-form-item>
+          </a-form>
+          <div class="action">
+            <a-button
+              style="width: 120px"
+              :loading="registerLoading"
+              type="primary"
+              @click="registerAction"
+              >注册</a-button
+            >
+          </div>
+        </div>
       </a-card>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs, UnwrapRef } from "vue";
-import loginBg from "assets/svg/login_bg.svg";
-import { LoginForm } from "types/login";
+import { defineComponent, reactive, ref, toRaw, UnwrapRef } from "vue";
+import loginBg from "@/assets/svg/login_bg.svg";
+import { LoginForm, RegisterForm } from "@/types/login";
+import { ValidateErrorEntity } from "ant-design-vue/lib/form/interface";
+import { login, register } from "@/apis/auth";
+import { message} from "ant-design-vue";
+import { NotEmpty } from "@/utils/antdValidate";
 export default defineComponent({
   setup() {
     //card初始化key
@@ -91,53 +146,143 @@ export default defineComponent({
     };
     // 登录表单逻辑
     const loginFormRef = ref();
-    const formState: UnwrapRef<LoginForm> = reactive({
-      name: "",
+    const loginForm: UnwrapRef<LoginForm> = reactive({
+      username: "",
       password: "",
     });
     const loginLoading = ref(false);
+    // 注册表单逻辑
+    const registerFormRef = ref();
+    const registerLoading = ref(false);
+    const registerForm: UnwrapRef<RegisterForm> = reactive({
+      username: "",
+      password: "",
+      confirmPassword: "",
+    });
+
     const loginRules = {
-      name: [
-        {
-          required: true,
-          message: "Please input Activity name",
-          trigger: "blur",
-        },
-        { min: 2, max: 5, message: "Length should be 2 to 5", trigger: "blur" },
-      ],
+      username: [NotEmpty("用户名")],
+      password: [NotEmpty("密码")],
     };
-    const resetForm = () => {
-      loginFormRef.value.value.resetFields();
+    const registerRules = {
+      username: [NotEmpty("用户名")],
+      password: [NotEmpty("密码")],
+      confirmPassword: [NotEmpty("确认密码")],
     };
-
-    const submitLogin = async (formState: LoginForm) => {
+    /**
+     * @description: 重置表单
+     * @param {*}
+     * @return {*}
+     */
+    const resetForm = (): any => {
+      loginFormRef.value.resetFields();
+      loginLoading.value = false;
+    };
+    /**
+     * @description: 登录
+     * @author: fangkang
+     * @param {*} data
+     * @return {*}
+     */
+    const submitLogin = async (data: LoginForm): Promise<any> => {
       loginLoading.value = true;
-      console.log("object", formState);
-      // const res = await login(data).catch((err) => {
-      //   console.log(err);
-      //   loginLoading.value = false;
-      // });
-      // loginLoading.value = false;
+      try {
+        const { code, msg } = await login(data);
+        loginLoading.value = false;
+        if (code == 200) {
+          message.success(msg);
+        } else {
+          message.error(msg);
+        }
+      } catch (error) {
+        message.error(error);
+        loginLoading.value = false;
+      }
     };
 
-    const loginAction = () => {
-      loginFormRef.value.value.value.validate().then(() => {
-        submitLogin(formState);
-      });
+    /**
+     * @description: 登录验证
+     * @author: fangkang
+     * @param {*}
+     * @return {*}
+     */
+    const loginAction = (): any => {
+      loginFormRef.value
+        .validate()
+        .then(() => {
+          console.log("values", loginForm, toRaw(loginForm));
+          submitLogin(loginForm);
+        })
+        .catch((error: ValidateErrorEntity<LoginForm>) => {
+          console.log("error", error);
+        });
+    };
+
+    /**
+     * @description: 注册
+     * @author: fangkang
+     * @param {*} data
+     * @return {*}
+     */
+    const submitRegister = async (data: RegisterForm): Promise<any> => {
+      const { username, password, confirmPassword } = data;
+      if (password != confirmPassword) {
+        message.warning("两次密码输入不一致");
+        return;
+      }
+      const params = {
+        username,
+        password,
+      };
+      registerLoading.value = true;
+      try {
+        const { code, msg } = await register(params);
+        registerLoading.value = false;
+        if (code == 200) {
+          message.success(msg);
+        } else {
+          message.error(msg);
+        }
+      } catch (error) {
+        message.error(error);
+        registerLoading.value = false;
+      }
+    };
+
+    /**
+     * @description: 注册验证
+     * @author: fangkang
+     * @param {*}
+     * @return {*}
+     */
+    const registerAction = (): any => {
+      registerFormRef.value
+        .validate()
+        .then(() => {
+          submitRegister(registerForm);
+        })
+        .catch((error: ValidateErrorEntity<RegisterForm>) => {
+          console.log("error", error);
+        });
     };
     return {
-      loginBg,
-      tabList,
-      tabkey,
-      tabChange,
-      formState,
-      loginFormRef,
-      loginRules,
-      labelCol,
-      wrapperCol,
-      resetForm,
-      loginLoading, //loading
-      loginAction
+      loginBg, //背景图
+      tabList, //card数据
+      tabkey, //当前key
+      tabChange, //切换登录注册方法
+      loginForm, //登录数据
+      loginFormRef, //登录dom
+      loginRules, //登录校验规则
+      registerRules, //注册校验规则
+      labelCol, //宽
+      wrapperCol, //宽
+      resetForm, //重置表单
+      loginLoading, //登录loading
+      loginAction, //登录方法
+      registerFormRef, //注册dom
+      registerForm, //注册数据
+      registerLoading, //注册loading
+      registerAction, //注册方法
     };
   },
 });
@@ -167,5 +312,14 @@ export default defineComponent({
       transform: translate(-50%, -50%);
     }
   }
+}
+.loginForm,
+.registerForm {
+  padding: 24px 24px 24px 0px;
+}
+.action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

@@ -35,44 +35,73 @@ export default defineConfig({
             return `element-plus/lib/${name}`;
           },
         },
-        {
-          libraryName: "ant-design-vue",
-          esModule: true,
-          resolveStyle: (name) => {
-            return `ant-design-vue/es/${name}/style/css`;
-          },
-        },
+        // {
+        //   libraryName: "ant-design-vue",
+        //   esModule: true,
+        //   resolveStyle: (name) => {
+        //     return `ant-design-vue/es/${name}/style`;
+        //   },
+        // },
       ],
     }),
   ],
   base: "./",
+  // 服务配置
+  server: {
+    port: 3001,
+    cors: true, // 默认启用并允许任何源
+    https: false,
+    open: true,
+    proxy: {
+      "/user": {
+        target: "http://8.130.31.13:3001",
+        changeOrigin: true,
+        rewrite: (path: string) => path.replace(/^\/user/, ""),
+      },
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      less: {
+        modifyVars: {
+          // 更改主题在这里
+          "primary-color": "#52c41a",
+          "link-color": "#1DA57A",
+          "border-radius-base": "2px",
+        },
+        javascriptEnabled: true,
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": pathResolve("src"),
-      components: pathResolve("src/components"),
-      assets: pathResolve("src/assets"),
-      router: pathResolve("src/router"),
-      views: pathResolve("src/views"),
-      utils: pathResolve("src/utils"),
-      apis: pathResolve("src/apis"),
-      plugins: pathResolve("src/plugins"),
-      mixins: pathResolve("src/mixins"),
-      types: pathResolve("src/types"),
-      hooks: pathResolve("src/hooks"),
-      styles: pathResolve("src/styles"),
+      // components: pathResolve("src/components"),
+      // assets: pathResolve("src/assets"),
+      // router: pathResolve("src/router"),
+      // views: pathResolve("src/views"),
+      // utils: pathResolve("src/utils"),
+      // apis: pathResolve("src/apis"),
+      // plugins: pathResolve("src/plugins"),
+      // mixins: pathResolve("src/mixins"),
+      // types: pathResolve("src/types"),
+      // hooks: pathResolve("src/hooks"),
+      // styles: pathResolve("src/styles"),
+      // constants: pathResolve("src/constants"),
     },
-    // alias: [
-    //   // /@/xxxx => src/xxxx
-    //   {
-    //     find: /\/@\//,
-    //     replacement: pathResolve('src') + '/',
-    //   },
-    //   // /#/xxxx => types/xxxx
-    //   {
-    //     find: /\/#\//,
-    //     replacement: pathResolve('types') + '/',
-    //   },
-    //   // ['@vue/compiler-sfc', '@vue/compiler-sfc/dist/compiler-sfc.esm-browser.js'],
-    // ],
+  },
+  build: {
+    outDir: "dist",
+    assetsDir: "assets",
+    assetsInlineLimit: 4096,
+    cssCodeSplit: true,
+    sourcemap: false,
+    // 去除console
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+      },
+    },
   },
 });

@@ -4,6 +4,10 @@
  * @Date: 2021-07-23 15:39:42
  */
 export interface LoginForm {
-  name: string;
+  username: string;
   password: string;
+}
+
+export interface RegisterForm extends LoginForm{
+  confirmPassword: string;
 }

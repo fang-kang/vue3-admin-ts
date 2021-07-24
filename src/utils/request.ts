@@ -5,11 +5,13 @@
  */
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import { stringify } from "qs";
-import { Local } from "./storage";
-import { message } from "plugins/antd";
-import { getEnv, IEnv } from "plugins/version";
+import { Local } from "@/utils/storage";
+import { message } from "ant-design-vue";
+import { getEnv, IEnv } from "@/plugins/version";
 
 const messageWhiteList = ["登录已失效，请重新登录"];
+
+const baseURL: any = import.meta.env.VITE_GLOB_API_URL;
 
 /**
  * @description: 获取ie浏览器版本是否低于11
@@ -97,7 +99,8 @@ const messagePause = () => {
   }, 2000);
 };
 
-const service :AxiosInstance = axios.create({
+const service: AxiosInstance = axios.create({
+  baseURL,
   timeout: 120000, // 超时时间
 });
 

@@ -3,23 +3,30 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
+    "importHelpers": true,
     "strict": true,
     "jsx": "preserve",
     "allowJs": true,
     "checkJs": true, // 允许在JS文件中报错，通常与allowJS一起使用
     "sourceMap": true,
-    "baseUrl": "src",
+    "baseUrl": ".",
     // 忽略 this 的类型检查, Raise error on this expressions with an implied any type.
     "noImplicitThis": false,
     "resolveJsonModule": true,
     "declaration": true, // 生成声明文件，开启后会自动生成声明文件
     "emitDeclarationOnly": true, // 只生成声明文件，而不会生成js文件
     "esModuleInterop": true,
+    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "lib": ["esnext", "dom"],
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "typeRoots": ["src/"],
+    "paths": {
+      "@": ["src"],
+      "@/*": ["src/*"],
+    }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue","typed-css.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "typed-css.d.ts"],
   // ts 排除的文件
   "exclude": ["node_modules"]
 }

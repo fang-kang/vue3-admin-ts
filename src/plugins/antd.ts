@@ -9,8 +9,7 @@ import {
   Form,
   Card,
   Input,
-  FormItem,
-  InputPassword,
+  InputPassword
 } from "ant-design-vue";
 import type { App } from "vue";
 
@@ -21,13 +20,12 @@ const components = [
   Form,
   Card,
   Input,
-  FormItem,
-  InputPassword,
+  InputPassword
 ];
 export default {
   install: (app: App) => {
     components.forEach((component: any) => {
-      app.component(component.name, component);
+      app.use(component);
     });
     app.config.globalProperties.$antMessage = message;
   },
