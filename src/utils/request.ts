@@ -175,7 +175,7 @@ const LoseEfficacyTokenCode = 22103;
 service.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // do something before request is sent
-    const token = "token";
+    const token = Local.get("token");
     if (token) {
       config.headers.authToken = token;
     }

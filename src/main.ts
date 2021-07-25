@@ -15,6 +15,8 @@ import "@/router/route";
 
 import "@/styles/common.scss"; /* common */
 
+// import '@/styles/index.scss' // global css
+
 // import Antd from "ant-design-vue";
 
 import "ant-design-vue/dist/antd.css";
@@ -27,6 +29,9 @@ import Element from "@/plugins/element"; /* Element按需引入 */
 
 import Antd from "@/plugins/antd"; /* Antd按需引入 */
 
+import Svg from "@/plugins/svg"; /* svg */
+
+
 const app = createApp(App);
 
 // 注册全局指令
@@ -35,4 +40,4 @@ for (const key in directives) {
   app.directive(key, directives[key]);
 }
 
-app.use(router).use(store).use(Element).use(Antd).mount("#app");
+app.use(router).use(store).use(Element).use(Antd).use(Svg).mount("#app");

@@ -48,10 +48,7 @@
           <div class="action">
             <a-space size="large">
               <a-button @click="resetForm" class="mr-10">重置</a-button>
-              <a-button
-                :loading="loginLoading"
-                type="primary"
-                @click="loginAction"
+              <a-button :loading="loginLoading" type="primary" @click="loginAction"
                 >登录</a-button
               >
             </a-space>
@@ -111,14 +108,17 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, toRaw, UnwrapRef } from "vue";
-import loginBg from "@/assets/svg/login_bg.svg";
+import loginBg from "@/icons/svg/login_bg.svg";
 import { LoginForm, RegisterForm } from "@/types/login";
 import { ValidateErrorEntity } from "ant-design-vue/lib/form/interface";
 import { login, register } from "@/apis/auth";
-import { message} from "ant-design-vue";
+import { message } from "ant-design-vue";
 import { NotEmpty } from "@/utils/antdValidate";
+import { Local } from "@/utils/storage";
+import { useRouter } from "vue-router";
 export default defineComponent({
   setup() {
+    const router = useRouter();
     //card初始化key
     const tabkey = ref("login");
     const labelCol = {
@@ -184,13 +184,17 @@ export default defineComponent({
      * @param {*} data
      * @return {*}
      */
-    const submitLogin = async (data: LoginForm): Promise<any> => {
+    const submitLogin = async (loginForm: LoginForm): Promise<any> => {
       loginLoading.value = true;
       try {
-        const { code, msg } = await login(data);
+        const { code, msg, data } = await login(loginForm);
         loginLoading.value = false;
         if (code == 200) {
+          Local.set("token", data.token);
           message.success(msg);
+          router.replace({
+            path: "/",
+          });
         } else {
           message.error(msg);
         }

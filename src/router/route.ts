@@ -4,7 +4,9 @@
  * @Date: 2021-07-23 14:39:07
  */
 import router, { whiteList } from "@/router";
+import getPageTitle from "@/utils/get-page-title";
 import NProgress from "nprogress";
+import { Local } from "@/utils/storage";
 import "nprogress/nprogress.css";
 
 // 简单配置
@@ -21,8 +23,8 @@ NProgress.configure({ easing: "ease", speed: 500, showSpinner: false });
  */
 router.beforeEach(async (to: any, _from: any, next: any) => {
   NProgress.start();
-  document.title = to.meta.title;
-  const token = "a";
+  document.title = getPageTitle(to.meta.title)
+  const token = Local.get("token");
   if (token) {
     next();
   } else {

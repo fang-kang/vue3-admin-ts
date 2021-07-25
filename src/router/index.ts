@@ -7,15 +7,16 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 
 export const whiteList = [
   {
-    path: '/login'
-  }
+    path: "/login",
+  },
 ];
 
-const routes: Array<RouteRecordRaw> = [
+export const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Home",
-    component: () => import(/* webpackChunkName: "index" */ "@/views/index/index.vue"),
+    component: () =>
+      import(/* webpackChunkName: "index" */ "@/views/index/index.vue"),
     meta: {
       title: "首页",
     },
@@ -23,7 +24,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/login",
     name: "Login",
-    component: () => import(/* webpackChunkName: "index" */ "@/views/login/index.vue"),
+    component: () =>
+      import(/* webpackChunkName: "index" */ "@/views/login/index.vue"),
     meta: {
       title: "登录",
     },
@@ -31,24 +33,26 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/test",
     name: "Test",
-    component: () => import(/* webpackChunkName: "index" */ "@/views/index/test.vue"),
+    component: () =>
+      import(/* webpackChunkName: "index" */ "@/views/index/test.vue"),
     meta: {
       title: "测试",
     },
   },
   {
     path: "/:path(.*)*",
-    component: () => import(/* webpackChunkName: "index" */ "@/views/error/404.vue"),
+    component: () =>
+      import(/* webpackChunkName: "index" */ "@/views/error/404.vue"),
     meta: {
       title: "找不到页面",
     },
-  }
+  },
 ];
 // Vue-router新版本中，需要使用createRouter来创建路由
-const Router =  createRouter({
+const Router = createRouter({
   // 指定路由的模式,此处使用的是hash模式
   history: createWebHashHistory(),
-  routes, // short for `routes: routes`
+  routes: constantRoutes, // short for `routes: routes`
 });
 
 export default Router;

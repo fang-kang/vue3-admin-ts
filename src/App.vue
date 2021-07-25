@@ -9,20 +9,20 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import useRem from '@/hooks/useRem';
+import useRem from "@/hooks/useRem";
 export default defineComponent({
   name: "App",
   setup() {
     useRem();
     const loading = document.getElementById("loading");
-    if(loading!=null){
+    if (loading != null) {
       document.body.removeChild(loading);
     }
-  }
+  },
 });
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

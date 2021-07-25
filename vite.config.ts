@@ -7,6 +7,7 @@ import { defineConfig } from "vite"; // 帮手函数，这样不用 jsdoc 注解
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import styleImport from "vite-plugin-style-import";
+import viteSvgIcons from 'vite-plugin-svg-icons';
 
 /**
  * @description: 主要用于alias文件路径别名
@@ -21,6 +22,11 @@ function pathResolve(dir: string): any {
 export default defineConfig({
   plugins: [
     vue(),
+    viteSvgIcons({
+      // 配置路劲在你的src里的svg存放文件
+      iconDirs: [resolve(process.cwd(), 'src/icons/svg')],
+      symbolId: 'icon-[dir]-[name]',
+    }),
     styleImport({
       libs: [
         {
@@ -76,18 +82,6 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": pathResolve("src"),
-      // components: pathResolve("src/components"),
-      // assets: pathResolve("src/assets"),
-      // router: pathResolve("src/router"),
-      // views: pathResolve("src/views"),
-      // utils: pathResolve("src/utils"),
-      // apis: pathResolve("src/apis"),
-      // plugins: pathResolve("src/plugins"),
-      // mixins: pathResolve("src/mixins"),
-      // types: pathResolve("src/types"),
-      // hooks: pathResolve("src/hooks"),
-      // styles: pathResolve("src/styles"),
-      // constants: pathResolve("src/constants"),
     },
   },
   build: {
