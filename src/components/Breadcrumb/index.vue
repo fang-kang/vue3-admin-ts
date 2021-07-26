@@ -10,49 +10,46 @@
         <span
           v-if="item.redirect === 'noRedirect' || index == levelList.length - 1"
           class="no-redirect"
-          >首页</span
+          >{{ item.meta.title }}</span
         >
-        <a v-else @click.prevent="handleLink(item)">首页</a>
+        <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
       </el-breadcrumb-item>
     </transition-group>
   </el-breadcrumb>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, onMounted, reactive, ref, watch, watchEffect } from "vue";
 import { compile } from "path-to-regexp";
 import { useRoute, useRouter } from "vue-router";
 export default defineComponent({
   setup() {
     const levelList = ref();
-    const route = useRoute();
-    const router = useRouter();
-    watch(
-      () => route,
-      (route) => {
-        if (route.path.startsWith("/redirect/")) {
-          return;
-        }
-        getBreadcrumb();
+    const Route = useRoute();
+    const Router = useRouter();
+    watch(Route, (route) => {
+      if (route.path.startsWith("/redirect/")) {
+        return;
       }
-    );
+      getBreadcrumb();
+    });
+    onMounted(() => {
+      getBreadcrumb();
+    });
+
     const getBreadcrumb = () => {
       // only show routes with meta.title
-      let matched: any = route.matched.filter(
-        (item) => item.meta && item.meta.title
-      );
+      let matched: any = Route.matched.filter((item) => item.meta && item.meta.title);
       const first = matched[0];
 
       if (!isDashboard(first)) {
-        matched = [{ path: "/dashboard", meta: { title: "Dashboard" } }].concat(
-          matched
-        );
+        matched = [{ path: "/dashboard", meta: { title: "Dashboard" } }].concat(matched);
       }
 
       levelList.value = matched.filter(
-        (item: { meta: { title: any; breadcrumb: boolean } }) =>
-          item.meta && item.meta.title && item.meta.breadcrumb !== false
+        (item: any) => item.meta && item.meta.title && item.meta.breadcrumb !== false
       );
+      console.log(levelList.value, "asas");
     };
 
     const isDashboard = (route: { name: any }) => {
@@ -60,14 +57,12 @@ export default defineComponent({
       if (!name) {
         return false;
       }
-      return (
-        name.trim().toLocaleLowerCase() === "Dashboard".toLocaleLowerCase()
-      );
+      return name.trim().toLocaleLowerCase() === "Dashboard".toLocaleLowerCase();
     };
 
     const pathCompile = (path: string) => {
       // To solve this problem https://github.com/PanJiaChen/vue-element-admin/issues/561
-      const { params } = route;
+      const { params } = Route;
       var toPath = compile(path);
       return toPath(params);
     };
@@ -75,10 +70,10 @@ export default defineComponent({
     const handleLink = (item: { redirect: any; path: any }) => {
       const { redirect, path } = item;
       if (redirect) {
-        router.push(redirect);
+        Router.push(redirect);
         return;
       }
-      router.push(pathCompile(path));
+      Router.push(pathCompile(path));
     };
 
     return {

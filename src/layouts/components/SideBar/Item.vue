@@ -4,11 +4,9 @@
  * @Date: 2021-07-25 14:01:32
 -->
 <template>
-  <div>
-    <i :class="[icon, 'sub-el-icon']" v-if="isElIcon" />
-    <svg-icon :icon-class="icon" v-else />
-    <span v-if="title">{{ title }}</span>
-  </div>
+  <i :class="[icon, 'sub-el-icon']" v-if="isElIcon" />
+  <svg-icon :icon-class="icon" v-else />
+  <span v-if="title">{{ title }}</span>
 </template>
 <script lang="ts">
 import { computed, defineComponent } from "vue";

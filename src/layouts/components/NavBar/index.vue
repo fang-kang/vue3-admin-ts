@@ -11,45 +11,39 @@
       class="hamburger-container"
       @toggleClick="toggleSideBar"
     />
-
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
-
     <div class="right-menu">
       <template v-if="device !== 'mobile'">
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
       </template>
 
-      <el-dropdown
-        class="avatar-container right-menu-item hover-effect"
-        trigger="click"
-      >
+      <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar" class="user-avatar" />
           <i class="el-icon-caret-bottom" />
         </div>
-        <el-dropdown-menu #dropdown>
-          <router-link to="/profile/index">
-            <el-dropdown-item>Profile</el-dropdown-item>
-          </router-link>
-          <router-link to="/">
-            <el-dropdown-item>Dashboard</el-dropdown-item>
-          </router-link>
-          <a
-            target="_blank"
-            href="https://github.com/PanJiaChen/vue-element-admin/"
-          >
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a>
-          <a
-            target="_blank"
-            href="https://panjiachen.github.io/vue-element-admin-site/#/"
-          >
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
-          <el-dropdown-item divided @click="logout">
-            <span style="display: block">Log Out</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <router-link to="/profile/index">
+              <el-dropdown-item>Profile</el-dropdown-item>
+            </router-link>
+            <router-link to="/">
+              <el-dropdown-item>Dashboard</el-dropdown-item>
+            </router-link>
+            <a target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">
+              <el-dropdown-item>Github</el-dropdown-item>
+            </a>
+            <a
+              target="_blank"
+              href="https://panjiachen.github.io/vue-element-admin-site/#/"
+            >
+              <el-dropdown-item>Docs</el-dropdown-item>
+            </a>
+            <el-dropdown-item divided @click="logout">
+              <span style="display: block">Log Out</span>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
       </el-dropdown>
     </div>
   </div>
@@ -67,7 +61,7 @@ export default defineComponent({
   components: {
     Breadcrumb,
     Hamburger,
-    Screenfull
+    Screenfull,
   },
   setup() {
     const store = useStore();
@@ -126,8 +120,10 @@ export default defineComponent({
   .right-menu {
     float: right;
     height: 100%;
+    display: flex;
+    align-items: center;
     line-height: 50px;
-
+    margin-right: 20px;
     &:focus {
       outline: none;
     }
@@ -135,7 +131,7 @@ export default defineComponent({
     .right-menu-item {
       display: inline-block;
       padding: 0 8px;
-      height: 100%;
+      height: 50px;
       font-size: 18px;
       color: #5a5e66;
       vertical-align: text-bottom;
@@ -152,7 +148,7 @@ export default defineComponent({
 
     .avatar-container {
       margin-right: 30px;
-
+      display: inline-block;
       .avatar-wrapper {
         margin-top: 5px;
         position: relative;
@@ -167,7 +163,7 @@ export default defineComponent({
         .el-icon-caret-bottom {
           cursor: pointer;
           position: absolute;
-          right: -20px;
+          right: -10px;
           top: 25px;
           font-size: 12px;
         }

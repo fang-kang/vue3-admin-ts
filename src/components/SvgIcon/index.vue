@@ -6,7 +6,7 @@
 <template>
   <div v-if="isExternal" :style="styleExternalIcon" class="svg-external-icon svg-icon" />
   <svg :class="svgClass" aria-hidden="true">
-    <use :xlink:href="iconName" :fill="color" />
+    <use :xlink:href="iconName" />
   </svg>
 </template>
 
@@ -23,10 +23,6 @@ export default defineComponent({
     className: {
       type: String,
       default: "",
-    },
-    color: {
-      type: String,
-      default: "#889aa4",
     },
   },
   setup(props) {

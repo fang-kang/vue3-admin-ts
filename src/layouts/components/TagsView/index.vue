@@ -5,11 +5,7 @@
 -->
 <template>
   <div id="tags-view-container" class="tags-view-container">
-    <scroll-pane
-      ref="scrollPane"
-      class="tags-view-wrapper"
-      @scroll="handleScroll"
-    >
+    <scroll-pane ref="scrollPane" class="tags-view-wrapper" @scroll="handleScroll">
       <router-link
         v-for="tag in visitedViews"
         ref="tag"
@@ -35,10 +31,7 @@
       class="contextmenu"
     >
       <li @click="refreshSelectedTag(state.selectedTag)">刷新</li>
-      <li
-        v-if="!isAffix(state.selectedTag)"
-        @click="closeSelectedTag(state.selectedTag)"
-      >
+      <li v-if="!isAffix(state.selectedTag)" @click="closeSelectedTag(state.selectedTag)">
         关闭本页
       </li>
       <li @click="closeOthersTags">关闭其他</li>
@@ -70,16 +63,17 @@ export default defineComponent({
     const store = useStore();
     const Routes = useRoute();
     const Router = useRouter();
-    const tag = ref();
-    const scrollPane = ref();
+    const tag = ref<any | null>(null);
+    const scrollPane = ref<any | null>(null);
     const state: any = reactive({
       visible: false,
       top: 0,
       left: 0,
-      selectedTag: {},
-      affixTags: [],
+      selectedTag: {} as any,
+      affixTags: [] as Array<any>,
     });
     onMounted(() => {
+      console.log(tag.value, "000000000000000000");
       initTags();
       addTags();
     });
@@ -104,7 +98,7 @@ export default defineComponent({
       () => Routes.path,
       () => {
         addTags();
-        moveToCurrentTag();
+        // moveToCurrentTag();
       }
     );
 
@@ -142,9 +136,9 @@ export default defineComponent({
     };
 
     const moveToCurrentTag = () => {
-      const tags = tag.value;
+      console.log(tag.value, "============================");
       nextTick(() => {
-        for (const item of tags) {
+        for (const item of tag.value) {
           if (item.to.path === Routes.path) {
             scrollPane.value.moveToTarget(item);
             // when query is different then update
@@ -198,15 +192,13 @@ export default defineComponent({
     const closeOthersTags = () => {
       Router.push(state.selectedTag);
       store.dispatch("tagsView/delOthersViews", state.selectedTag).then(() => {
-        moveToCurrentTag();
+        // moveToCurrentTag();
       });
     };
 
     const closeAllTags = (view: { path: any; name?: any; fullPath?: any }) => {
       store.dispatch("tagsView/delAllViews").then(({ visitedViews }) => {
-        if (
-          state.affixTags.some((tag: { path: any }) => tag.path === view.path)
-        ) {
+        if (state.affixTags.some((tag: { path: any }) => tag.path === view.path)) {
           return;
         }
         toLastView(visitedViews, view);

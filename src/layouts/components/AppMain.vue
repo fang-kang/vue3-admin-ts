@@ -5,14 +5,14 @@
 -->
 <template>
   <section class="app-main">
-    <!-- 内部应该显示子路由页面信息 -->
-    <transition name="fade-transform" mode="out-in">
-      <router-view v-slot="{ Component }" :key="$route.path">
+    <router-view v-slot="{ Component }" :key="$route.path">
+      <!-- 内部应该显示子路由页面信息 -->
+      <transition name="fade-transform" mode="out-in">
         <keep-alive :include="cachedViews">
           <component :is="Component" />
         </keep-alive>
-      </router-view>
-    </transition>
+      </transition>
+    </router-view>
   </section>
 </template>
 
@@ -40,7 +40,7 @@ export default defineComponent({
   min-height: calc(100vh - 60px);
   width: 100%;
   padding: 20px;
-  padding-top: 94px!important;
+  padding-top: 94px !important;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;

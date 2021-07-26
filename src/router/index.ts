@@ -20,6 +20,7 @@ export const constantRoutes: RouteRecordRaw[] = [
     meta: {
       title: "登录",
       hidden: true,
+      breadcrumb: false,
     },
   },
   {
@@ -34,29 +35,28 @@ export const constantRoutes: RouteRecordRaw[] = [
     ],
   }, // 重定向
   {
-    path: "/home",
+    path: '/',
     component: Layout,
-    meta: { title: "首页", icon: "logo", affix: true },
+    redirect: '/dashboard',
     children: [
       {
-        path: "home",
-        component: () => import("@/views/index/index.vue"),
-        name: "Home",
-        meta: { title: "首页", icon: "logo", affix: true },
-      },
-    ],
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/index.vue'),
+        name: 'Dashboard',
+        meta: { title: '首页', icon: 'dashboard', affix: true }
+      }
+    ]
   },
   {
-    path: "/",
+    path: "/home",
     component: Layout,
-    redirect: "/dashboard",
-    meta: { title: "仪表盘", icon: "dashboard" },
+    meta: { title: "首页", icon: "guide" },
     children: [
       {
-        path: "/dashboard",
-        component: () => import("@/views/dashboard/index.vue"),
-        name: "Dashboard",
-        meta: { title: "仪表盘", icon: "dashboard" },
+        path: "index",
+        component: () => import("@/views/index/index.vue"),
+        name: "Home",
+        meta: { title: "欢迎", icon: "guide" },
       },
     ],
   },
@@ -66,7 +66,7 @@ export const constantRoutes: RouteRecordRaw[] = [
     meta: { title: "表单", icon: "form" },
     children: [
       {
-        path: "formIndex",
+        path: "index",
         component: () => import("@/views/form/index.vue"),
         name: "FormIndex",
         meta: { title: "表单", icon: "form" },

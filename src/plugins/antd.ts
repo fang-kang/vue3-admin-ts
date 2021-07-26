@@ -23,7 +23,7 @@ const components = [
   InputPassword,
 ];
 export default {
-  install: (app: App) => {
+  install (app: App) {
     components.forEach((component: any) => {
       app.use(component);
     });

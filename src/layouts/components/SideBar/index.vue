@@ -15,6 +15,7 @@
         :active-text-color="variables.menuActiveText"
         :collapse-transition="false"
         :unique-opened="false"
+        mode="vertical"
       >
         <side-bar-item
           v-for="(route, index) in constantRoutes"
