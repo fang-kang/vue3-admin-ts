@@ -11,3 +11,7 @@ declare module '*.vue' {
 }
 
 declare module '*.ts';
+
+declare module 'path-browserify';
+
+declare module 'js-cookie';

@@ -3,37 +3,52 @@
  * @Author: 房康
  * @Date: 2021-07-23 14:30:00
  */
-import {
-  Module,
-  VuexModule,
-  getModule,
-  Mutation,
-  Action,
-} from "vuex-module-decorators";
-import store from "@/store";
-export interface IAppState {
-  collapsed: boolean; // 侧边菜单是否折叠
-}
-@Module({ dynamic: true, store, name: "App" })
-class App extends VuexModule implements IAppState {
-  public collapsed = false;
-  @Mutation
-  private FOLD_SIDEBAR() {
-    this.collapsed = true;
-  }
+import Cookies from "js-cookie";
+const state = {
+  sidebar: {
+    opened: true,
+    withoutAnimation: false,
+  },
+  device: "desktop",
+  size: Cookies.get("size") || "medium",
+};
+const mutations = {
+  TOGGLE_SIDEBAR: (state: { sidebar: { opened: boolean; withoutAnimation: boolean; }; }) => {
+    state.sidebar.opened = !state.sidebar.opened;
+    state.sidebar.withoutAnimation = false;
+  },
+  CLOSE_SIDEBAR: (state: { sidebar: { opened: boolean; withoutAnimation: any; }; }, withoutAnimation: any) => {
+    Cookies.set("sidebarStatus", 0);
+    state.sidebar.opened = false;
+    state.sidebar.withoutAnimation = withoutAnimation;
+  },
+  TOGGLE_DEVICE: (state: { device: any; }, device: any) => {
+    state.device = device;
+  },
+  SET_SIZE: (state: { size: any; }, size: any) => {
+    state.size = size;
+    Cookies.set("size", size);
+  },
+};
 
-  @Mutation
-  private TOGGLE_SIDEBAR() {
-    this.collapsed = !this.collapsed;
-  }
-  @Action
-  public FoldSideBar() {
-    this.FOLD_SIDEBAR();
-  }
+const actions = {
+  toggleSideBar(state: { commit: (arg0: string) => void; }) {
+    state.commit("TOGGLE_SIDEBAR");
+  },
+  closeSideBar(state: { commit: (arg0: string, arg1: any) => void; }, { withoutAnimation }: any) {
+    state.commit("CLOSE_SIDEBAR", withoutAnimation);
+  },
+  toggleDevice(state: any, device: any) {
+    state.commit("TOGGLE_DEVICE", device);
+  },
+  setSize(state: any, size: any) {
+    state.commit("SET_SIZE", size);
+  },
+};
 
-  @Action
-  public ToggleSideBar() {
-    this.TOGGLE_SIDEBAR();
-  }
-}
-export const AppModule = getModule(App);
+export default {
+  namespaced: true,
+  state,
+  mutations,
+  actions,
+};

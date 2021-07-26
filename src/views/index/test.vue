@@ -4,30 +4,15 @@
  * @Date: 2021-07-19 17:04:16
 -->
 <template>
-  <div>
-    <svg-icon icon-class="avatar" />
-  </div>
+  <div><svg-icon icon-class="avatar" /></div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
-import SvgIcon from "@/components/SvgIcon/index.vue";
-export default defineComponent({
-  components: {
-    SvgIcon,
-  },
-  setup() {
-    const state = reactive({
-      count: 1,
-    });
-    const increment = (count: number) => {
-      state.count = count;
-    };
+import { defineComponent } from "vue";
 
-    return {
-      ...toRefs(state),
-      increment,
-    };
+export default defineComponent({
+  setup() {
+    return {};
   },
 });
 </script>

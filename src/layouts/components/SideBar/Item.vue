@@ -26,11 +26,9 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { icon, title } = props;
-    const isElIcon = computed(() => icon.includes("el-icon"));
+    const isElIcon = computed(() => props.icon.includes("el-icon"));
     return {
       isElIcon,
-      title,
     };
   },
 });

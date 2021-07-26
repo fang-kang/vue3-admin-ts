@@ -30,13 +30,11 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  setup() {
     const { title } = setting;
-    const collapse = props.collapse;
     return {
       logo,
       title,
-      collapse,
     };
   },
 });

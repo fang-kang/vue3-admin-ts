@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import notFound from "@/assets/svg/404.svg";
+import notFound from "@/icons/svg/404.svg";
 import { useRouter } from "vue-router";
 import useCountDown from "@/hooks/useCountDown";
 export default defineComponent({
@@ -31,7 +31,7 @@ export default defineComponent({
     return {
       notFound,
       backHome,
-      coutDown
+      coutDown,
     };
   },
 });

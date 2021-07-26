@@ -1,9 +1,9 @@
-@import './variables.scss';
+@import './variables.module.scss';
 @import './mixin.scss';
 @import './transition.scss';
 @import './sidebar.scss';
 @import './btn.scss';
-
+@import './common.scss';
 body {
   height: 100%;
   -moz-osx-font-smoothing: grayscale;

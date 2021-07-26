@@ -7,7 +7,7 @@ import { defineConfig } from "vite"; // 帮手函数，这样不用 jsdoc 注解
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import styleImport from "vite-plugin-style-import";
-import viteSvgIcons from 'vite-plugin-svg-icons';
+import viteSvgIcons from "vite-plugin-svg-icons";
 
 /**
  * @description: 主要用于alias文件路径别名
@@ -24,8 +24,8 @@ export default defineConfig({
     vue(),
     viteSvgIcons({
       // 配置路劲在你的src里的svg存放文件
-      iconDirs: [resolve(process.cwd(), 'src/icons/svg')],
-      symbolId: 'icon-[dir]-[name]',
+      iconDirs: [resolve(process.cwd(), "src/icons/svg")],
+      symbolId: "icon-[dir]-[name]",
     }),
     styleImport({
       libs: [
@@ -66,19 +66,14 @@ export default defineConfig({
       },
     },
   },
-  css: {
-    preprocessorOptions: {
-      less: {
-        modifyVars: {
-          // 更改主题在这里
-          "primary-color": "#52c41a",
-          "link-color": "#1DA57A",
-          "border-radius-base": "2px",
-        },
-        javascriptEnabled: true,
-      },
-    },
-  },
+  // css: {
+  //    // css预处理器
+  //   preprocessorOptions: {
+  //     scss: {
+  //       additionalData: `@import "@/styles/index.scss";`
+  //     },
+  //   },
+  // },
   resolve: {
     alias: {
       "@": pathResolve("src"),

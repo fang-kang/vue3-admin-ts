@@ -1,10 +1,10 @@
 <!--
  * @Descripttion: 
  * @Author: 房康
- * @Date: 2021-07-25 14:12:28
+ * @Date: 2021-07-25 20:18:58
 -->
 <template>
-  <div v-if="!item.hidden">
+  <div v-if="!item.meta || !item.meta.hidden">
     <template
       v-if="
         hasOneShowingChild(item.children, item) &&
@@ -37,7 +37,7 @@
           :title="item.meta.title"
         />
       </template>
-      <sidebar-item
+      <side-bar-item
         v-for="child in item.children"
         :key="child.path"
         :is-nest="true"
@@ -48,61 +48,55 @@
     </el-submenu>
   </div>
 </template>
-
 <script lang="ts">
-import { resolve } from "path";
+import { resolve } from "path-browserify";
+import Item from "./Item.vue";
+import AppLink from "./Link.vue";
 import { isExternal } from "@/utils/validate";
 import { defineComponent, ref } from "vue";
-import AppLink from "./Link.vue";
-import Item from "./Item.vue";
 export default defineComponent({
-  name: "SidebarItem",
   components: {
-    AppLink,
     Item,
+    AppLink,
   },
   props: {
-    // route object
     item: {
       type: Object,
       required: true,
-    },
-    isNest: {
-      type: Boolean,
-      default: false,
     },
     basePath: {
       type: String,
       default: "",
     },
+    isNest: {
+      type: Boolean,
+      default: false,
+    },
   },
-  setup(props) {
-    let onlyOneChild = ref();
+  setup(props: { basePath: string }) {
+    const onlyOneChild = ref();
     const hasOneShowingChild = (children = [], parent: any) => {
       const showingChildren = children.filter((item: any) => {
-        if (item.hidden) {
+        if (item.meta.hidden) {
           return false;
         } else {
           // Temp set(will be used if only has one showing child)
-          onlyOneChild = item;
+          onlyOneChild.value = item;
           return true;
         }
       });
-
       // When there is only one child router, the child router is displayed by default
       if (showingChildren.length === 1) {
         return true;
       }
-
       // Show parent if there are no child router to display
       if (showingChildren.length === 0) {
-        onlyOneChild = { ...parent, path: "", noShowingChildren: true };
+        onlyOneChild.value = { ...parent, path: "", noShowingChildren: true };
         return true;
       }
-
       return false;
     };
-    const resolvePath = (routePath: any) => {
+    const resolvePath = (routePath: string) => {
       if (isExternal(routePath)) {
         return routePath;
       }
@@ -112,8 +106,8 @@ export default defineComponent({
       return resolve(props.basePath, routePath);
     };
     return {
-      hasOneShowingChild,
       onlyOneChild,
+      hasOneShowingChild,
       resolvePath,
     };
   },

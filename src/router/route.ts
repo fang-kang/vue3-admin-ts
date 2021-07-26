@@ -11,22 +11,25 @@ import "nprogress/nprogress.css";
 
 // 简单配置
 NProgress.inc(0.2);
-NProgress.configure({ easing: "ease", speed: 500, showSpinner: false });
+NProgress.configure({ easing: "ease", speed: 500 });
 
 /**
  * @description: 路由拦截
  * @author: fangkang
  * @param {*} async
- * @param {any} _from
+ * @param {any} from
  * @param {any} next
  * @return {*}
  */
-router.beforeEach(async (to: any, _from: any, next: any) => {
+router.beforeEach(async (to: any, from: any, next: any) => {
+  // console.log("to", to);
+  // console.log("from", from);
   NProgress.start();
-  document.title = getPageTitle(to.meta.title)
+  document.title = getPageTitle(to.meta.title);
   const token = Local.get("token");
   if (token) {
     next();
+    NProgress.done();
   } else {
     if (whiteList.some((item: any) => item.path === to.path)) {
       next();

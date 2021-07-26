@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
-import { isExternal } from "@/utils/validate";
+import { isExternal as isExt } from "@/utils/validate";
 export default defineComponent({
   props: {
     to: {
@@ -20,26 +20,23 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const external = computed(() => {
-      return isExternal(props.to);
-    });
+    const isExternal = computed(() => isExt(props.to));
+    // type是一个计算属性
     const type = computed(() => {
-      if (external) {
+      if (isExternal.value) {
         return "a";
       }
       return "router-link";
     });
     const linkProps = (to: any) => {
-      if (external) {
+      if (isExternal.value) {
         return {
           href: to,
           target: "_blank",
           rel: "noopener",
         };
       }
-      return {
-        to,
-      };
+      return { to };
     };
     return {
       linkProps,

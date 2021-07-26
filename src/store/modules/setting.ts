@@ -1,21 +1,38 @@
 /*
- * @Descripttion:
+ * @Descripttion: 
  * @Author: 房康
- * @Date: 2021-07-23 14:30:00
+ * @Date: 2021-07-24 17:35:18
  */
+import defaultSettings from '@/settings'
 
-export interface IAppState {
-  collapsed: boolean; // 侧边菜单是否折叠
+const { showSettings, tagsView, fixedHeader, sidebarLogo } = defaultSettings
+
+const state = {
+  showSettings: showSettings,
+  tagsView: tagsView,
+  fixedHeader: fixedHeader,
+  sidebarLogo: sidebarLogo
 }
 
-const state: IAppState = {
-  collapsed: false,
-};
-const mutations = {};
-const actions = {};
+const mutations = {
+  CHANGE_SETTING: (state: { [x: string]: any; hasOwnProperty: (arg0: any) => any }, { key, value }: any) => {
+    // eslint-disable-next-line no-prototype-builtins
+    if (state.hasOwnProperty(key)) {
+      state[key] = value
+    }
+  }
+}
+
+const actions = {
+  changeSetting({ commit }: any, data: any) {
+    commit('CHANGE_SETTING', data)
+  }
+}
+
 export default {
+  namespaced: true,
   state,
   mutations,
-  actions,
-  namespace: true,
-};
+  actions
+}
+

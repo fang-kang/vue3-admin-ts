@@ -1,25 +1,20 @@
 <!--
  * @Descripttion: 
  * @Author: 房康
- * @Date: 2021-07-24 17:01:25
+ * @Date: 2021-07-25 20:12:03
 -->
 <template>
-  <div>
-    <layouts />
-  </div>
+  <div>Index</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import layouts from "@/layouts/index.vue";
+
 export default defineComponent({
-  components: {
-    layouts,
-  },
   setup() {
     return {};
   },
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped></style>

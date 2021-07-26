@@ -4,7 +4,7 @@
  * @Date: 2021-07-25 13:20:32
 -->
 <template>
-  <div></div>
+  <div>dashboarddashboarddashboarddashboarddashboarddashboarddashboarddashboard</div>
 </template>
 
 <script lang="ts">

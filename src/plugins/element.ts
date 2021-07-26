@@ -5,6 +5,7 @@
  */
 // 如果要使用.scss样式文件，则需要引入base.scss文件
 // import 'element-plus/packages/theme-chalk/src/base.scss'
+import Cookies from 'js-cookie'
 import "element-plus/packages/theme-chalk/src/base.scss";
 import {
   ElAlert,
@@ -94,39 +95,39 @@ import {
 import type { App } from "vue";
 
 const components = [
-  // ElAlert,
+  ElAlert,
   ElAside,
-  // ElAutocomplete,
-  // ElAvatar,
-  // ElBacktop,
-  // ElBadge,
-  // ElBreadcrumb,
-  // ElBreadcrumbItem,
+  ElAutocomplete,
+  ElAvatar,
+  ElBacktop,
+  ElBadge,
+  ElBreadcrumb,
+  ElBreadcrumbItem,
   ElButton,
-  // ElButtonGroup,
-  // ElCalendar,
-  // ElCard,
-  // ElCarousel,
-  // ElCarouselItem,
-  // ElCascader,
-  // ElCascaderPanel,
-  // ElCheckbox,
-  // ElCheckboxButton,
-  // ElCheckboxGroup,
+  ElButtonGroup,
+  ElCalendar,
+  ElCard,
+  ElCarousel,
+  ElCarouselItem,
+  ElCascader,
+  ElCascaderPanel,
+  ElCheckbox,
+  ElCheckboxButton,
+  ElCheckboxGroup,
   ElCol,
-  // ElCollapse,
-  // ElCollapseItem,
-  // ElCollapseTransition,
-  // ElColorPicker,
+  ElCollapse,
+  ElCollapseItem,
+  ElCollapseTransition,
+  ElColorPicker,
   ElContainer,
-  // ElDatePicker,
+  ElDatePicker,
   ElDialog,
-  // ElDivider,
-  // ElDrawer,
-  // ElDropdown,
-  // ElDropdownItem,
-  // ElDropdownMenu,
-  // ElFooter,
+  ElDivider,
+  ElDrawer,
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu,
+  ElFooter,
   ElForm,
   ElFormItem,
   ElHeader,
@@ -139,8 +140,8 @@ const components = [
   ElMenu,
   ElMenuItem,
   ElMenuItemGroup,
-  // ElOption,
-  // ElOptionGroup,
+  ElOption,
+  ElOptionGroup,
   ElPageHeader,
   ElPagination,
   ElPopconfirm,
@@ -160,8 +161,8 @@ const components = [
   ElSubmenu,
   ElSwitch,
   ElTabPane,
-  // ElTable,
-  // ElTableColumn,
+  ElTable,
+  ElTableColumn,
   ElTabs,
   ElTag,
   ElTimePicker,
@@ -169,6 +170,9 @@ const components = [
   ElTimeline,
   ElTimelineItem,
   ElTooltip,
+  ElTransfer,
+  ElTree,
+  ElUpload,
 ];
 
 const plugins = [
@@ -188,7 +192,7 @@ export default {
       app.use(plugin);
     });
     const option = {
-      size: "medium",
+      size: Cookies.get('size') || 'medium', // set element-ui default size
       zIndex: 3000,
     };
     app.config.globalProperties.$ELEMENT = option;

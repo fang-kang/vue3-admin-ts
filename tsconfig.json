@@ -19,7 +19,7 @@
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "lib": ["esnext", "dom"],
-    "types": ["vite/client"],
+    "types": ["vite/client","node"],
     "typeRoots": ["src/"],
     "paths": {
       "@": ["src"],

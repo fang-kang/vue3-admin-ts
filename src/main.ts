@@ -13,9 +13,9 @@ import "normalize.css/normalize.css"; /* a modern alternative to CSS resets */
 
 import "@/router/route";
 
-import "@/styles/common.scss"; /* common */
+// import "@/styles/common.scss"; /* common */
 
-// import '@/styles/index.scss' // global css
+import "@/styles/index.scss"; // global css
 
 // import Antd from "ant-design-vue";
 
@@ -30,7 +30,6 @@ import Element from "@/plugins/element"; /* Element按需引入 */
 import Antd from "@/plugins/antd"; /* Antd按需引入 */
 
 import Svg from "@/plugins/svg"; /* svg */
-
 
 const app = createApp(App);
 

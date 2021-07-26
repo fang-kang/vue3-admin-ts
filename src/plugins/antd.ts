@@ -10,10 +10,6 @@ import {
   Card,
   Input,
   InputPassword,
-  Layout,
-  Menu,
-  LayoutHeader,
-  LayoutSider
 } from "ant-design-vue";
 import type { App } from "vue";
 
@@ -25,10 +21,6 @@ const components = [
   Card,
   Input,
   InputPassword,
-  Layout,
-  Menu,
-  LayoutHeader,
-  LayoutSider
 ];
 export default {
   install: (app: App) => {
