@@ -19,12 +19,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref, watch, watchEffect } from "vue";
+import { defineComponent, onMounted, ref, watch } from "vue";
 import { compile } from "path-to-regexp";
-import { useRoute, useRouter } from "vue-router";
+import { RouteLocationMatched, useRoute, useRouter } from "vue-router";
 export default defineComponent({
   setup() {
-    const levelList = ref();
+    const levelList = ref([] as any);
     const Route = useRoute();
     const Router = useRouter();
     watch(Route, (route) => {
@@ -39,25 +39,32 @@ export default defineComponent({
 
     const getBreadcrumb = () => {
       // only show routes with meta.title
-      let matched: any = Route.matched.filter((item) => item.meta && item.meta.title);
+      let matched: any = Route.matched.filter(
+        (item: RouteLocationMatched) => item?.meta?.title
+      );
       const first = matched[0];
 
       if (!isDashboard(first)) {
-        matched = [{ path: "/dashboard", meta: { title: "Dashboard" } }].concat(matched);
+        matched = [{ path: "/dashboard", meta: { title: "首页" } }].concat(
+          matched
+        );
       }
 
       levelList.value = matched.filter(
-        (item: any) => item.meta && item.meta.title && item.meta.breadcrumb !== false
+        (item: RouteLocationMatched) =>
+          item.meta && item.meta.title && item.meta.breadcrumb !== false
       );
       console.log(levelList.value, "asas");
     };
 
-    const isDashboard = (route: { name: any }) => {
+    const isDashboard = (route: { name: string }) => {
       const name = route && route.name;
       if (!name) {
         return false;
       }
-      return name.trim().toLocaleLowerCase() === "Dashboard".toLocaleLowerCase();
+      return (
+        name.trim().toLocaleLowerCase() === 'Dashboard'.toLocaleLowerCase()
+      );
     };
 
     const pathCompile = (path: string) => {
@@ -67,7 +74,7 @@ export default defineComponent({
       return toPath(params);
     };
 
-    const handleLink = (item: { redirect: any; path: any }) => {
+    const handleLink = (item: { redirect: any; path: any; }) => {
       const { redirect, path } = item;
       if (redirect) {
         Router.push(redirect);

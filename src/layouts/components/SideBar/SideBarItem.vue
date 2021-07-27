@@ -4,7 +4,7 @@
  * @Date: 2021-07-25 20:18:58
 -->
 <template>
-  <div v-if="!item.meta || !item.meta.hidden">
+  <template v-if="!item.meta || !item.meta.hidden">
     <template
       v-if="
         hasOneShowingChild(item.children, item) &&
@@ -12,17 +12,24 @@
         !item.alwaysShow
       "
     >
-      <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
-        <el-menu-item
-          :index="resolvePath(onlyOneChild.path)"
-          :class="{ 'submenu-title-noDropdown': !isNest }"
-        >
-          <item
-            :icon="onlyOneChild.meta.icon || (item.meta && item.meta.icon)"
-            :title="onlyOneChild.meta.title"
-          />
-        </el-menu-item>
-      </app-link>
+      <el-menu-item
+        v-if="onlyOneChild.meta"
+        :key="item.path"
+        :index="resolvePath(onlyOneChild.path)"
+        :class="{ 'submenu-title-noDropdown': !isNest }"
+        @click="go(resolvePath(onlyOneChild.path))"
+      >
+        <svg-icon
+          v-if="onlyOneChild.meta && onlyOneChild.meta.icon"
+          :icon-class="
+            onlyOneChild.meta.icon ||
+            (onlyOneChild.meta && onlyOneChild.meta.icon)
+          "
+        />
+        <template #title v-if="onlyOneChild.meta && onlyOneChild.meta.title">{{
+          onlyOneChild.meta.title
+        }}</template>
+      </el-menu-item>
     </template>
     <el-submenu
       v-else
@@ -31,11 +38,11 @@
       popper-append-to-body
     >
       <template #title>
-        <item
-          v-if="item.meta"
-          :icon="item.meta && item.meta.icon"
-          :title="item.meta.title"
+        <svg-icon
+          v-if="item.meta && item.meta.icon"
+          :icon-class="item.meta.icon"
         />
+        <span v-if="item.meta && item.meta.title">{{ item.meta.title }}</span>
       </template>
       <side-bar-item
         v-for="child in item.children"
@@ -46,17 +53,31 @@
         class="nest-menu"
       />
     </el-submenu>
-  </div>
+  </template>
 </template>
 <script lang="ts">
 import { resolve } from "path-browserify";
-import Item from "./Item.vue";
+import ItemIcon from "./ItemIcon.vue";
 import AppLink from "./Link.vue";
 import { isExternal } from "@/utils/validate";
 import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
+
+interface ChildType {
+  path: string;
+  name?: string;
+  component: Function;
+  meta: {
+    title: Object;
+    icon: string;
+    hidden?: boolean;
+    [key: string]: any;
+  };
+}
 export default defineComponent({
+  name: "SidebarItem",
   components: {
-    Item,
+    ItemIcon,
     AppLink,
   },
   props: {
@@ -73,11 +94,12 @@ export default defineComponent({
       default: false,
     },
   },
-  setup(props: { basePath: string }) {
+  setup(props) {
     const onlyOneChild = ref();
-    const hasOneShowingChild = (children = [], parent: any) => {
+    const router = useRouter();
+    const hasOneShowingChild = (children: ChildType[] = [], parent: any) => {
       const showingChildren = children.filter((item: any) => {
-        if (item.meta.hidden) {
+        if (item?.meta?.hidden) {
           return false;
         } else {
           // Temp set(will be used if only has one showing child)
@@ -105,10 +127,22 @@ export default defineComponent({
       }
       return resolve(props.basePath, routePath);
     };
+
+    function go(routerPath: any) {
+      console.log(routerPath, "routerPath");
+      if (isExternal(routerPath)) {
+        window.open(routerPath);
+      } else {
+        router.push({
+          path: routerPath,
+        });
+      }
+    }
     return {
       onlyOneChild,
       hasOneShowingChild,
       resolvePath,
+      go,
     };
   },
 });

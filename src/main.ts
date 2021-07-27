@@ -13,8 +13,6 @@ import "normalize.css/normalize.css"; /* a modern alternative to CSS resets */
 
 import "@/router/route";
 
-// import "@/styles/common.scss"; /* common */
-
 import "@/styles/index.scss"; // global css
 
 // import Antd from "ant-design-vue";

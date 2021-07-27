@@ -23,7 +23,7 @@ import { defineComponent } from "vue";
 import logo from "@/icons/svg/logo.svg";
 import setting from "@/settings";
 export default defineComponent({
-  name: "Logo",
+  name: "SidebarLogo",
   props: {
     collapse: {
       type: Boolean,

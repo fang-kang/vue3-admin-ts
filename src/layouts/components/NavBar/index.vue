@@ -16,31 +16,31 @@
       <template v-if="device !== 'mobile'">
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
       </template>
-
-      <el-dropdown class="avatar-container right-menu-item hover-effect" trigger="click">
-        <div class="avatar-wrapper">
+      <div class="right-menu-item hover-effect">
+        <el-tooltip
+          class="item"
+          effect="dark"
+          content="管理员"
+          placement="bottom-end"
+        >
           <img :src="avatar" class="user-avatar" />
-          <i class="el-icon-caret-bottom" />
+        </el-tooltip>
+      </div>
+      <el-dropdown trigger="click">
+        <div class="header-setting hover-effect" style="cursor: pointer">
+          <i class="mr-5 el-icon-setting fs-16"></i>
+          <span class="word">设置</span>
+          <i class="el-icon-caret-bottom caretDown"></i>
         </div>
         <template #dropdown>
           <el-dropdown-menu>
-            <router-link to="/profile/index">
-              <el-dropdown-item>Profile</el-dropdown-item>
-            </router-link>
-            <router-link to="/">
-              <el-dropdown-item>Dashboard</el-dropdown-item>
-            </router-link>
-            <a target="_blank" href="https://github.com/PanJiaChen/vue-element-admin/">
-              <el-dropdown-item>Github</el-dropdown-item>
-            </a>
-            <a
-              target="_blank"
-              href="https://panjiachen.github.io/vue-element-admin-site/#/"
-            >
-              <el-dropdown-item>Docs</el-dropdown-item>
-            </a>
-            <el-dropdown-item divided @click="logout">
-              <span style="display: block">Log Out</span>
+            <el-dropdown-item>
+              <i class="mr-5 el-icon-user"></i>
+              <span>修改密码</span>
+            </el-dropdown-item>
+            <el-dropdown-item @click="logout">
+              <i class="mr-5 el-icon-switch-button"></i>
+              <span>退出登录</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -94,7 +94,9 @@ export default defineComponent({
   position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-
+  .word {
+    font-size: 16px;
+  }
   .hamburger-container {
     line-height: 46px;
     height: 100%;
@@ -135,7 +137,6 @@ export default defineComponent({
       font-size: 18px;
       color: #5a5e66;
       vertical-align: text-bottom;
-
       &.hover-effect {
         cursor: pointer;
         transition: background 0.3s;
@@ -149,26 +150,26 @@ export default defineComponent({
     .avatar-container {
       margin-right: 30px;
       display: inline-block;
-      .avatar-wrapper {
-        margin-top: 5px;
-        position: relative;
-
-        .user-avatar {
-          cursor: pointer;
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-        }
-
-        .el-icon-caret-bottom {
-          cursor: pointer;
-          position: absolute;
-          right: -10px;
-          top: 25px;
-          font-size: 12px;
-        }
-      }
     }
+    .avatar-wrapper {
+      margin-top: 5px;
+      position: relative;
+    }
+
+    .user-avatar {
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+    }
+
+    // .el-icon-caret-bottom {
+    //   cursor: pointer;
+    //   position: absolute;
+    //   right: -10px;
+    //   top: 25px;
+    //   font-size: 12px;
+    // }
   }
 }
 </style>

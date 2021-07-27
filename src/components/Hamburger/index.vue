@@ -31,6 +31,7 @@ export default defineComponent({
       default: false,
     },
   },
+  emit:["toggleClick"],
   setup(props, { emit }) {
     const toggleClick = () => {
       emit("toggleClick");

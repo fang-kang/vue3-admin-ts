@@ -4,7 +4,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,
-    "strict": true,
+    "strict": false,
     "jsx": "preserve",
     "allowJs": true,
     "checkJs": true, // 允许在JS文件中报错，通常与allowJS一起使用
@@ -20,7 +20,7 @@
     "allowSyntheticDefaultImports": true,
     "lib": ["esnext", "dom"],
     "types": ["vite/client","node"],
-    "typeRoots": ["src/"],
+    "typeRoots": ["./node_modules/@types/", "./types"],
     "paths": {
       "@": ["src"],
       "@/*": ["src/*"],
@@ -28,5 +28,5 @@
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "typed-css.d.ts"],
   // ts 排除的文件
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist", "**/*.js"]
 }

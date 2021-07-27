@@ -25,9 +25,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
+import useDeviceInfo from "@/hooks/useDeviceInfo";
+import { defineComponent, computed, watch } from "vue";
+import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import ResizeMixin from '@/mixins/ResizeHandler';
 import { AppMain, NavBar, SideBar, TagsView } from "./components";
 export default defineComponent({
   components: {
@@ -36,19 +37,34 @@ export default defineComponent({
     NavBar,
     TagsView,
   },
-  mixins: [ResizeMixin],
   setup() {
     const store = useStore();
-    console.log(store, "++=");
+    const route = useRoute();
+    const { deviceScreenType } = useDeviceInfo("#app");
+    if (deviceScreenType.value == "sm") {
+      store.dispatch("app/toggleDevice", "mobile");
+      store.dispatch("app/closeSideBar", { withoutAnimation: true });
+    } else {
+      store.dispatch("app/toggleDevice", "desktop");
+    }
     const device: any = computed(() => {
       return store.getters.device;
     });
+    console.log(device,'device');
     const sidebar: any = computed(() => {
       return store.getters.sidebar;
     });
+
+    watch(route, () => {
+      if (device === "mobile" && sidebar.opened) {
+        store.dispatch("app/closeSideBar", { withoutAnimation: false });
+      }
+    });
+
     const hideSidebar = computed(() => {
       return !store.getters.sidebar;
     });
+
     // const showSettings = computed(() => {
     //   return store.state.settings.showSettings;
     // });

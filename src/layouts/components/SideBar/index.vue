@@ -8,7 +8,7 @@
     <Logo :collapse="collapsed" v-if="showLogo" />
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
-        :default-active="activeMenu"
+        :default-active="$route.path"
         :collapse="collapsed"
         :background-color="variables.menuBg"
         :text-color="variables.menuText"
@@ -55,7 +55,7 @@ export default defineComponent({
       return path;
     });
     onMounted(() => {
-      console.log(constantRoutes, "=======");
+      console.log(activeMenu.value, "=======");
     });
     return {
       variables,

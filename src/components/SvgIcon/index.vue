@@ -4,8 +4,12 @@
  * @Date: 2021-07-25 13:08:05
 -->
 <template>
-  <div v-if="isExternal" :style="styleExternalIcon" class="svg-external-icon svg-icon" />
-  <svg :class="svgClass" aria-hidden="true">
+  <div
+    v-if="isExternal"
+    :style="styleExternalIcon"
+    class="svg-external-icon svg-icon"
+  />
+  <svg :class="svgClass" aria-hidden="true" @click="svgClick">
     <use :xlink:href="iconName" />
   </svg>
 </template>
@@ -15,6 +19,7 @@ import { isExternal } from "@/utils/validate";
 import { computed, defineComponent } from "vue";
 export default defineComponent({
   name: "SvgIcon",
+  emits:["svgClick"],
   props: {
     iconClass: {
       type: String,
@@ -25,7 +30,10 @@ export default defineComponent({
       default: "",
     },
   },
-  setup(props) {
+  setup(props, { emit }) {
+    function svgClick() {
+      emit("svgClick");
+    }
     return {
       styleExternalIcon: computed(() => {
         return {
@@ -41,6 +49,7 @@ export default defineComponent({
         }
         return "svg-icon";
       }),
+      svgClick
     };
   },
 });

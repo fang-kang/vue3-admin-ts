@@ -6,13 +6,12 @@
 <template>
   <i :class="[icon, 'sub-el-icon']" v-if="isElIcon" />
   <svg-icon :icon-class="icon" v-else />
-  <span v-if="title">{{ title }}</span>
 </template>
 <script lang="ts">
 import { computed, defineComponent } from "vue";
 
 export default defineComponent({
-  name: "MenuItem",
+  name: "ItemIcon",
   props: {
     icon: {
       type: String,
@@ -32,7 +31,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .sub-el-icon {
   color: currentColor;
   width: 1em;

@@ -79,7 +79,7 @@ export default defineComponent({
     });
 
     onBeforeRouteUpdate(() => {
-      console.log("路由变了");
+      console.log(Routes,"路由变了");
     });
 
     watch(

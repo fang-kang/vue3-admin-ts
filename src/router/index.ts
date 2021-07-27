@@ -25,7 +25,7 @@ export const constantRoutes: RouteRecordRaw[] = [
   },
   {
     path: "/redirect",
-    meta: { hidden: true },
+    meta: { hidden: true, breadcrumb: false },
     component: Layout,
     children: [
       {
@@ -35,33 +35,21 @@ export const constantRoutes: RouteRecordRaw[] = [
     ],
   }, // 重定向
   {
-    path: '/',
+    path: "/",
     component: Layout,
-    redirect: '/dashboard',
+    redirect: "/dashboard",
     children: [
       {
-        path: 'dashboard',
-        component: () => import('@/views/dashboard/index.vue'),
-        name: 'Dashboard',
-        meta: { title: '首页', icon: 'dashboard', affix: true }
-      }
-    ]
-  },
-  {
-    path: "/home",
-    component: Layout,
-    meta: { title: "首页", icon: "guide" },
-    children: [
-      {
-        path: "index",
-        component: () => import("@/views/index/index.vue"),
-        name: "Home",
-        meta: { title: "欢迎", icon: "guide" },
+        path: "/dashboard",
+        component: () => import("@/views/dashboard/index.vue"),
+        name: "Dashboard",
+        meta: { title: "首页", icon: "dashboard", affix: true },
       },
     ],
   },
   {
     path: "/form",
+    redirect: "/form/index",
     component: Layout,
     meta: { title: "表单", icon: "form" },
     children: [
@@ -81,6 +69,7 @@ export const constantRoutes: RouteRecordRaw[] = [
   },
   {
     path: "/test",
+    redirect: "/test/index",
     component: Layout,
     meta: { title: "测试", icon: "documentation" },
     children: [

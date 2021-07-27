@@ -5,41 +5,30 @@
 -->
 <template>
   <div>
-    <svg-icon
-      :icon-class="isFullscreen ? 'exit-fullscreen' : 'fullscreen'"
-      @click="toggleFull"
-    />
+    <el-tooltip
+      effect="dark"
+      :content="isFullscreen ? '退出全屏显示' : '全屏显示'"
+      placement="bottom-end"
+    >
+      <div>
+        <svg-icon
+          :icon-class="isFullscreen ? 'exit-fullscreen' : 'fullscreen'"
+          @svg-click="toggle"
+        />
+      </div>
+    </el-tooltip>
   </div>
 </template>
 
 <script lang="ts">
-import useFullscreen from "@/hooks/useFullscreen";
-import { defineComponent, ref } from "vue";
-// import screenfull from "screenfull";
+import { useFullscreen } from "@vueuse/core";
+import { defineComponent } from "vue";
 export default defineComponent({
   setup() {
-    const { isFullscreen, setFull, exitFull, toggleFull } = useFullscreen();
-    // const isFullscreen = ref(false);
-
-    // const destroy = () => {
-    //   if (screenfull.isEnabled) {
-    //     screenfull.off("change", change);
-    //   }
-    // };
-
-    // const init = () => {
-    //   if (screenfull.isEnabled) {
-    //     screenfull.on("change", change);
-    //   }
-    // };
-
-    // const change = () => {
-    //   isFullscreen.value = screenfull.isFullscreen;
-    // };
-
+    const { isFullscreen, toggle } = useFullscreen();
     return {
       isFullscreen,
-      toggleFull,
+      toggle,
     };
   },
 });
