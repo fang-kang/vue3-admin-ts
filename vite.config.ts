@@ -20,7 +20,7 @@ function pathResolve(dir: string): any {
 }
 // https://vitejs.dev/config/
 export default defineConfig({
-  define: {              // 类型： Record<string, string> 定义全局变量替换方式。每项在开发时会被定义为全局变量，而在构建时则是静态替换。
+  define: {
     'process.platform': null,
     'process.version': null,
   },
@@ -88,6 +88,9 @@ export default defineConfig({
     assetsDir: "assets",
     assetsInlineLimit: 4096,
     cssCodeSplit: true,
+    brotliSize: false,
+    // 消除打包大小超过500kb警告
+    chunkSizeWarningLimit: 2000,
     sourcemap: false,
     // 去除console
     terserOptions: {
