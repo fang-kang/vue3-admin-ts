@@ -45,9 +45,9 @@ export default defineComponent({
       const first = matched[0];
 
       if (!isDashboard(first)) {
-        matched = [{ path: "/dashboard", meta: { title: "首页" } }].concat(
-          matched
-        );
+        // matched = [{ path: "/dashboard", meta: { title: "首页" } }].concat(
+        //   matched
+        // );
       }
 
       levelList.value = matched.filter(
@@ -62,9 +62,7 @@ export default defineComponent({
       if (!name) {
         return false;
       }
-      return (
-        name.trim().toLocaleLowerCase() === 'Dashboard'.toLocaleLowerCase()
-      );
+      return name.trim().toLocaleLowerCase() === "Dashboard".toLocaleLowerCase();
     };
 
     const pathCompile = (path: string) => {
@@ -74,7 +72,7 @@ export default defineComponent({
       return toPath(params);
     };
 
-    const handleLink = (item: { redirect: any; path: any; }) => {
+    const handleLink = (item: { redirect: any; path: any }) => {
       const { redirect, path } = item;
       if (redirect) {
         Router.push(redirect);

@@ -3,7 +3,7 @@
  * @Author: 房康
  * @Date: 2021-07-16 17:10:27
  */
-import { createApp } from "vue";
+import { createApp, Directive } from "vue";
 
 import App from "./App.vue";
 
@@ -33,8 +33,7 @@ const app = createApp(App);
 
 // 注册全局指令
 for (const key in directives) {
-  // @ts-ignore
-  app.directive(key, directives[key]);
+  app.directive(key, (directives as { [key: string]: Directive })[key]);
 }
 
 app.use(router).use(store).use(Element).use(Antd).use(Svg).mount("#app");
